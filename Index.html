@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I'm Sorry My Love</title>
+  <style>
+    body {
+      margin: 0;
+      background: white;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .center {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    #sorry-btn {
+      background-color: pink;
+      color: white;
+      font-size: 30px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 0 20px white;
+      cursor: pointer;
+      animation: glow 1s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 5px white; }
+      to { box-shadow: 0 0 20px white; }
+    }
+
+    #tap-text {
+      color: gray;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    #gift-btn {
+      display: none;
+      margin-top: 30px;
+      background: url('https://cdn-icons-png.flaticon.com/512/3534/3534066.png') no-repeat center center;
+      background-size: cover;
+      width: 80px;
+      height: 80px;
+      border: none;
+      position: relative;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .star {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: gold;
+      border-radius: 50%;
+      animation: twinkle 1s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    #heart-container {
+      display: none;
+      position: relative;
+      width: 350px;
+      height: 300px;
+      margin: 100px auto 0;
+    }
+
+    .heart-image {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 0 10px pink;
+      animation: pop 0.5s ease-in-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #love-text {
+      display: none;
+      font-size: 24px;
+      font-weight: bold;
+      color: red;
+      text-align: center;
+      margin-top: 30px;
+      animation: sparkle 1s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { text-shadow: 0 0 5px red; }
+      50% { text-shadow: 0 0 20px red; }
+    }
+
+    .letter {
+      display: inline-block;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center">
+    <button id="sorry-btn">Sorry</button>
+    <div id="tap-text">Tap on Sorry</div>
+    <button id="gift-btn" title="Are you ready?"></button>
+    <audio id="firecracker-sound" src="https://cdn.pixabay.com/audio/2021/09/04/audio_9ba0c64f37.mp3"></audio>
+    <audio id="bg-music" src="https://files.catbox.moe/pjmxo8.mp3" loop></audio>
+  </div>
+
+  <div id="heart-container"></div>
+  <div id="love-text"></div>
+
+  <script>
+    const sorryBtn = document.getElementById("sorry-btn");
+    const giftBtn = document.getElementById("gift-btn");
+    const firecracker = document.getElementById("firecracker-sound");
+    const music = document.getElementById("bg-music");
+    const loveText = document.getElementById("love-text");
+
+    sorryBtn.addEventListener("click", () => {
+      giftBtn.style.display = "inline-block";
+      addStarsAroundGift();
+    });
+
+    giftBtn.addEventListener("click", () => {
+      firecracker.play();
+      music.play();
+      showHeartImages();
+      showLoveText();
+    });
+
+    function addStarsAroundGift() {
+      for (let i = 0; i < 10; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.style.left = `${Math.random() * 80}px`;
+        star.style.top = `${Math.random() * 80}px`;
+        giftBtn.appendChild(star);
+      }
+    }
+
+    function showHeartImages() {
+      const heart = document.getElementById("heart-container");
+      heart.style.display = "block";
+      const count = 20;
+      const radius = 120;
+      const centerX = 160;
+      const centerY = 130;
+      const angleStep = Math.PI / count;
+
+      const urls = [
+        "https://i.ibb.co/ZvsszqY/74022-DD7-8-A77-499-B-AD48-B434418-A07-DF.png",
+        "https://i.ibb.co/mr8Ts3bj/IMG-3713.jpg",
+        "https://i.ibb.co/212dc58G/IMG-3682.jpg",
+        "https://i.ibb.co/JFnRgvhn/IMG-2265.jpg",
+        "https://i.ibb.co/6RxyqmsJ/IMG-2259.jpg",
+        "https://i.ibb.co/N286QdRW/IMG-1840.jpg",
+        "https://i.ibb.co/6JqB9yNG/IMG-1167.jpg",
+        "https://i.ibb.co/sp4DqPVw/061a4f7e-769b-4a75-9093-cf1f3b7dfc33.jpg",
+        "https://i.ibb.co/fYdXsGmc/3d7ad99c-f7b5-4f91-ab90-059b6d784041.jpg",
+        "https://i.ibb.co/WNkmFts1/IMG-8588.jpg",
+        "https://i.ibb.co/PG42RPLX/IMG-8587.jpg",
+        "https://i.ibb.co/Ng6mBp3Q/3-FAA830-C-C295-4319-BEAA-A0-FEB5-BF62-AC.jpg",
+        "https://i.ibb.co/JWgtvPLJ/939b3a43-cfeb-4486-a9b0-dc0daca955eb.jpg",
+        "https://i.ibb.co/qYyk5Cgd/IMG-4088.jpg",
+        "https://i.ibb.co/Kpm8Lf4x/IMG-4085.jpg",
+        "https://i.ibb.co/nNRG3vCc/IMG-2256.jpg",
+        "https://i.ibb.co/chs0BxfP/IMG-2263.jpg",
+        "https://i.ibb.co/dYgJZqF/IMG-1109.jpg",
+        "https://i.ibb.co/xq4WJQvD/3293e8ec-0ace-4f9b-a5b8-198f2957542e.jpg",
+        "https://i.ibb.co/BKjPRcdc/95648506-2903-4483-8b76-ee72e99a6cf3.jpg"
+      ];
+
+      for (let i = 0; i < urls.length; i++) {
+        const img = document.createElement("img");
+        img.src = urls[i];
+        img.className = "heart-image";
+        const theta = angleStep * i;
+        const x = centerX + radius * Math.sin(theta) * Math.sin(theta) - 30;
+        const y = centerY - radius * Math.sin(theta) * Math.cos(theta) - 30;
+        img.style.left = x + "px";
+        img.style.top = y + "px";
+        heart.appendChild(img);
+      }
+    }
+
+    function showLoveText() {
+      loveText.style.display = "block";
+      const message = "I love you sweetheart forever";
+      loveText.innerHTML = '';
+      message.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.className = 'letter';
+        span.style.animationDelay = `${index * 0.1}s`;
+        span.textContent = char;
+        loveText.appendChild(span);
+      });
+    }
+  </script>
+</body>
+</html>
